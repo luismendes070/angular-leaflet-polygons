@@ -1,3 +1,4 @@
+import { * as L } from 'leaflet';
 import 'zone.js/dist/zone';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,10 +20,35 @@ export class App {
 
 constructor(){
 
+  // var map = L.map('map').setView([51.505, -0.09], 13);
+
+  // initialize the map on the "map" div with a given center and zoom
+var map:any = L.map('map', {
+  center: [51.505, -0.09],
+  zoom: 13
+});
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
 // create a red polygon from an array of LatLng points
 var latlngs = [[37, -109.05],[41, -109.03],[41, -102.05],[37, -102.04]];
 
 var polygon = L.polygon(latlngs, {color: 'red'}).addTo(map);
+
+var polygon2 = L.polygon([
+  [51.509, -0.08],
+  [51.503, -0.06],
+  [51.51, -0.047]
+]).addTo(map);
+
+function onMapClick(e) {
+  alert("You clicked the map at " + e.latlng);
+}
+
+map.on('click', onMapClick);
 
 // zoom the map to the polygon
 map.fitBounds(polygon.getBounds());
