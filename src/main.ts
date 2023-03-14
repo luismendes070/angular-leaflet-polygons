@@ -1,4 +1,4 @@
-import { * as L } from 'leaflet';
+const L  = require('leaflet');
 import 'zone.js/dist/zone';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
