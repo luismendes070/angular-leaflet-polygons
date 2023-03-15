@@ -12,5 +12,32 @@
   <body>
     <my-app>Loading...</my-app>
     <div id="map"></div>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <hr>
+    AdMob is not loading...
+    <script>
+    function start() {
+      // 2. Initialize the JavaScript client library.
+      gapi.client.init({
+        'apiKey': ${ADMOB_BANNER_ID},
+        // clientId and scope are optional if auth is not required.
+        'clientId': ${ADMOB_BANNER_CHANNEL}.apps.googleusercontent.com',
+        'scope': 'profile',
+      }).then(function() {
+        // 3. Initialize and make the API request.
+        return gapi.client.request({
+          'path': 'https://people.googleapis.com/v1/people/me?requestMask.includeField=person.names',
+        })
+      }).then(function(response) {
+        console.log(response.result);
+      }, function(reason) {
+        console.log('Error: ' + reason.result.error.message);
+      });
+    };
+    // 1. Load the JavaScript client library.
+    gapi.load('client', start);
+    </script>
+
   </body>
 </html>
